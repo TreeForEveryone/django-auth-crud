@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'base.html'%}
+    {% block content %}
+        <main class="container">
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    {{error}}
+                    <h1 class="text-secondary">{{especific_task}}</h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button class="btn btn-primary">
+                            Guardar cambios
+                        </button>
+                    </form>
+                    <div class="d-flex">
+                        <form action="{% url 'complete_task' especific_task.id %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-secondary">Completar</button>
+                        </form>
+                        <form action="{% url 'delete_task' especific_task.id %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    {% endblock %}
+
+</body>
+</html>
